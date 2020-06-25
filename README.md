@@ -1,6 +1,7 @@
-#kumload
+# kumload
+
 kumload is database migration tool.
-We can easily migrate database with defined schema in yaml file.
+We can easily migrate a database with defined schema in yaml file.
 
 - Easy to migrate database
 - Able to stop or continue migration
@@ -87,6 +88,8 @@ source:
       source table
     primary_key:
       source field name that used as primary key
+    order_key:
+      order field name that used to order data source migration in ascending order
 target:
   target migration
     db:

@@ -1,0 +1,19 @@
+insert into sessions(
+    "id",
+    "name",
+    "username",
+    "email",
+) select
+    id,
+    name,
+    username,
+    email,
+from
+    good_service.foods
+where
+    id not in (
+        select
+            id
+        from drinks
+    )
+order by created_at asc limit ?
