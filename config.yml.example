@@ -1,0 +1,22 @@
+log_level: info
+batch:
+  interval: 0
+  size: 2
+database:
+  host: 100.100.100.100:212
+  username: root
+  password: secret
+  source:
+    name: good_service
+    table: foods
+    primary_key: id
+    order_key: id
+  target:
+    name: bad_service
+    table: drinks
+    primary_key: id
+mappings:
+  id: id
+  name: name
+  username: username
+  email: email
