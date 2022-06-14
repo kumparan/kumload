@@ -1,10 +1,13 @@
 # kumload
 
 
-<a name="v1.0.0"></a>
-## v1.0.0 - 2020-06-25
+<a name="1.0.1"></a>
+## 1.0.1 - 2022-06-14
 ### New Features
 - migrate same database host
 
+### Other Improvements
+- update changelog args
 
-[Unreleased]: https://github.com/kumparan/kumload/compare/v1.0.0...HEAD
+
+[Unreleased]: https://github.com/kumparan/kumload/compare/1.0.1...HEAD

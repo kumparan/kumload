@@ -1,4 +1,4 @@
-changelog_args=-o CHANGELOG.md -p '^v'
+changelog_args=-o CHANGELOG.md -tag-filter-pattern '^v'
 
 gocognit:
 	-gocognit -over 15 .
