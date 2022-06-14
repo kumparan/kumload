@@ -65,15 +65,16 @@ func (m *migrationImpl) Run() error {
 	progressBar.SetTemplate(pb.Full)
 
 	progressBar.Start()
+	offset := int64(0)
 	for i := int64(0); i < iterationCount; i++ {
-		err := m.db.Exec(script, limit).Error
-		if err != nil {
+		if err := m.db.Exec(script, offset, limit).Error; err != nil {
 			return err
 		}
 
 		time.Sleep(time.Duration(m.config.Batch.Interval) * time.Second)
 		progressBar.Increment()
 
+		offset += limit
 		if i == iterationCount-2 && mod > 0 {
 			limit = mod
 		}
@@ -85,19 +86,22 @@ func (m *migrationImpl) Run() error {
 
 func (m *migrationImpl) generateQuery(config *Config) string {
 	script := `
-INSERT INTO %s(
-	%s
-) 
-SELECT
-	%s
-FROM 
-	%s
-WHERE 
-	%s NOT IN (
-		SELECT %s
-		FROM %s
-	)
-ORDER BY %s ASC LIMIT ?`
+		INSERT INTO %s(
+			%s
+		) 
+		SELECT
+			%s
+		FROM 
+			%s
+		WHERE 
+			%s NOT IN (
+				SELECT %s
+				FROM %s
+			)
+		ORDER BY %s ASC 
+		OFFSET ?
+		LIMIT ?
+	`
 
 	var insertParams, fromParams string
 	for k, v := range config.Mappings {

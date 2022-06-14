@@ -16,4 +16,6 @@ where
             id
         from drinks
     )
-order by created_at asc limit ?
+order by created_at asc
+offset ?
+limit ?
